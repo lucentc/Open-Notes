@@ -1,0 +1,82 @@
+.app-shell {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 88px 1fr;
+  gap: 32px;
+  align-items: start;
+  padding: 36px;
+}
+
+.app-sidebar {
+  position: sticky;
+  top: 36px;
+  height: calc(100vh - 72px);
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  align-items: center;
+}
+
+.app-main {
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+@media (max-width: 860px) {
+  .app-shell {
+    grid-template-columns: 64px 1fr;
+    padding: 20px;
+    gap: 20px;
+  }
+  .logo-bubble,
+  .add-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+  }
+  .search-input {
+    width: 220px;
+  }
+}
+
+.topbar {
+  @apply w-full flex items-center justify-between py-3 px-4 bg-white dark:bg-gray-900 shadow-sm;
+}
+
+.topbar-left {
+  @apply flex items-center gap-3;
+}
+
+.topbar-logo {
+  @apply w-10 h-10 rounded-lg bg-gradient-to-b from-white to-gray-100 
+         dark:from-gray-800 dark:to-gray-700 shadow-md grid place-items-center 
+         text-xl font-bold text-[var(--accent)];
+}
+
+.topbar-datetime {
+  @apply flex flex-col text-sm leading-tight;
+}
+.topbar-datetime .weekday {
+  @apply text-[var(--muted)];
+}
+.topbar-datetime .date {
+  @apply font-semibold;
+}
+
+.topbar-actions {
+  @apply flex items-center gap-2;
+}
+
+.topbar-button {
+  @apply px-3 py-1 rounded-lg bg-[var(--accent)] text-white hover:bg-blue-600 transition;
+}
+
+.topbar-delete {
+  @apply px-3 py-1 rounded-lg bg-red-600 text-white hover:bg-red-700 transition;
+}
+
+.topbar-lang,
+.topbar-theme {
+  @apply px-2 py-1 border rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition;
+}

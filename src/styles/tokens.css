@@ -1,0 +1,9 @@
+:root {
+  --bg: #fbfdff;
+  --fg: #0f172a;
+  --panel: #ffffff;
+  --muted: #8b9aa8;
+  --accent: #2563eb;
+  --soft-shadow: 0 8px 30px rgba(18, 23, 38, 0.08);
+  --glass: rgba(255, 255, 255, 0.7);
+}

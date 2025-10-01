@@ -1,0 +1,39 @@
+{
+  "topbar": {
+    "add": "Add",
+    "deleteAll": "Delete all",
+    "confirmDeleteAll": "Delete all notes?",
+    "confirmDeleteAllDesc": "Are you sure you want to delete all notes? This will permanently delete all your notes and cannot be undone.",
+    "searchPlaceholder": "Search notes...",
+    "deleteAllSuccess": "All notes deleted successfully"
+  },
+  "notes": {
+    "lastUpdated": "Last updated",
+    "lastUpdatedShort": "Updated",
+    "new": "New notes",
+    "placeholder": "Write your note here...",
+    "empty": "No notes",
+    "emptyDescription": "Start by creating your first note to organize your thoughts and ideas.",
+    "emptyContent": "No content",
+    "addFirstNote": "Add Your First Note"
+  },
+  "common": {
+    "loading": "Loading...",
+    "delete": "Delete",
+    "close": "Close",
+    "confirmDeleteTitle": "Delete note?",
+    "confirmDeleteDesc": "Are you sure you want to delete this note? This action cannot be undone.",
+    "confirmDeleteAllTitle": "Delete all notes?",
+    "confirmDeleteAllDesc": "Are you sure you want to delete ALL notes? This will permanently delete all your notes and cannot be undone.",
+    "confirmYes": "Yes",
+    "confirmNo": "No"
+  },
+  "theme": {
+    "light": "Light",
+    "dark": "Dark"
+  },
+  "language": {
+    "en": "English",
+    "id": "Indonesian"
+  }
+}

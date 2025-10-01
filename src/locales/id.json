@@ -1,0 +1,39 @@
+{
+  "topbar": {
+    "add": "Tambah",
+    "deleteAll": "Hapus semua",
+    "confirmDeleteAll": "Hapus semua catatan?",
+    "confirmDeleteAllDesc": "Apakah Anda yakin ingin menghapus semua catatan? Ini akan menghapus permanen semua catatan Anda dan tidak dapat dibatalkan.",
+    "searchPlaceholder": "Cari catatan...",
+    "deleteAllSuccess": "Semua catatan berhasil dihapus"
+  },
+  "notes": {
+    "lastUpdated": "Terakhir diupdate",
+    "lastUpdatedShort": "Diupdate",
+    "new": "Catatan baru",
+    "placeholder": "Tulis catatanmu di sini...",
+    "empty": "Tidak ada catatan",
+    "emptyDescription": "Mulai dengan membuat catatan pertama Anda untuk mengatur pikiran dan ide-ide.",
+    "emptyContent": "Tidak ada konten",
+    "addFirstNote": "Tambah Catatan Pertama"
+  },
+  "common": {
+    "loading": "Memuat...",
+    "delete": "Hapus",
+    "close": "Tutup",
+    "confirmDeleteTitle": "Hapus catatan?",
+    "confirmDeleteDesc": "Apakah Anda yakin ingin menghapus catatan ini? Tindakan ini tidak dapat dibatalkan.",
+    "confirmDeleteAllTitle": "Hapus semua catatan?",
+    "confirmDeleteAllDesc": "Apakah Anda yakin ingin menghapus SEMUA catatan? Ini akan menghapus permanen semua catatan Anda dan tidak dapat dibatalkan.",
+    "confirmYes": "Ya",
+    "confirmNo": "Tidak"
+  },
+  "theme": {
+    "light": "Terang",
+    "dark": "Gelap"
+  },
+  "language": {
+    "en": "Inggris",
+    "id": "Indonesia"
+  }
+}
