@@ -151,12 +151,10 @@ export function useNotes() {
 
   return {
     notes,
-    allNotes: notes,
     loading,
     addNote,
     updateNote,
     deleteNote,
     deleteAll,
-    refetch: fetchNotes,
   }
 }
