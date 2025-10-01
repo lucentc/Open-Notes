@@ -132,9 +132,13 @@ export default function TopBar() {
           <button
             ref={hamburgerRef}
             onClick={toggleMobileMenu}
-            className="lg:hidden flex items-center justify-center w-8 h-8 rounded-xl border transition-all duration-300 bg-white/70 dark:bg-gray-800/70 hover:bg-gray-50 dark:hover:bg-gray-700 border-gray-300/70 dark:border-gray-600/70"
+            className="lg:hidden flex items-center justify-center w-8 h-8 rounded-xl border transition-all duration-500 bg-white/70 dark:bg-gray-800/70 hover:bg-gray-50 dark:hover:bg-gray-700 border-gray-300/70 dark:border-gray-600/70 hover:scale-110 active:scale-95"
           >
-            {isMobileMenuOpen ? <X size={16} /> : <Menu size={16} />}
+            {isMobileMenuOpen ? (
+              <X size={16} className="transition-all duration-500 rotate-90 scale-110" />
+            ) : (
+              <Menu size={16} className="transition-all duration-500 rotate-0 scale-100" />
+            )}
           </button>
         </div>
       </header>
@@ -142,7 +146,7 @@ export default function TopBar() {
       {isMobileMenuOpen && (
         <div
           ref={mobileMenuRef}
-          className="lg:hidden fixed top-14 left-0 right-0 z-50 bg-white/95 dark:bg-gray-900/95 backdrop-blur-md border-b border-gray-200 dark:border-gray-700 shadow-lg"
+          className="lg:hidden fixed top-14 left-0 right-0 z-50 bg-white/95 dark:bg-gray-900/95 backdrop-blur-md border-b border-gray-200 dark:border-gray-700 shadow-lg transition-all duration-500 transform origin-top"
         >
           <div className="flex items-center justify-between p-4 gap-3">
             <button

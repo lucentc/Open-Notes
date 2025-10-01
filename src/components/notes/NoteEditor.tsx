@@ -30,6 +30,7 @@ export default function NoteEditor({
   const internalTextareaRef = useRef<HTMLTextAreaElement>(null)
   const actualTextareaRef = textareaRef || internalTextareaRef
   const saveTimeoutRef = useRef<NodeJS.Timeout | null>(null)
+  const lastSelectionRef = useRef<{ start: number; end: number }>({ start: 0, end: 0 })
 
   useEffect(() => {
     if (content !== note.content || colorTag !== note.color_tag) {
@@ -64,7 +65,12 @@ export default function NoteEditor({
     if (textarea) {
       setTimeout(() => {
         textarea.focus()
-        if (autoFocus) {
+        if (lastSelectionRef.current) {
+          textarea.setSelectionRange(
+            lastSelectionRef.current.start,
+            lastSelectionRef.current.end
+          )
+        } else if (autoFocus) {
           textarea.setSelectionRange(
             textarea.value.length,
             textarea.value.length
@@ -73,6 +79,16 @@ export default function NoteEditor({
       }, 0)
     }
   }, [autoFocus, actualTextareaRef])
+
+  const saveSelection = useCallback(() => {
+    const textarea = actualTextareaRef.current
+    if (textarea) {
+      lastSelectionRef.current = {
+        start: textarea.selectionStart,
+        end: textarea.selectionEnd
+      }
+    }
+  }, [actualTextareaRef])
 
   useEffect(() => {
     focusTextarea()
@@ -126,11 +142,14 @@ export default function NoteEditor({
   }, [handleClickOutside])
 
   const handleColorChange = (color: NoteColor) => {
+    saveSelection()
     setColorTag(color)
+    setTimeout(focusTextarea, 10)
   }
 
   const handleContentChange = (newContent: string) => {
     setContent(newContent)
+    saveSelection()
   }
 
   const handleContainerClick = (e: React.MouseEvent) => {
@@ -138,19 +157,24 @@ export default function NoteEditor({
     focusTextarea()
   }
 
+  const handleCloseButtonClick = useCallback(async (e: React.MouseEvent) => {
+    e.stopPropagation()
+    await handleCloseEditor()
+  }, [handleCloseEditor])
+
   return (
     <>
       <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm" />
       
-      <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+      <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4">
         <div
           ref={containerRef}
-          className="relative rounded-2xl shadow-2xl w-full max-w-2xl bg-white dark:bg-gray-900 flex flex-col max-h-[90vh] border border-gray-200 dark:border-gray-700"
+          className="relative rounded-xl sm:rounded-2xl shadow-2xl w-full h-full sm:h-auto sm:max-h-[90vh] sm:max-w-2xl bg-white dark:bg-gray-900 flex flex-col border border-gray-200 dark:border-gray-700"
           onClick={handleContainerClick}
           data-preserve-editor
         >
-          <div className="flex items-center justify-between p-4 border-b dark:border-gray-700 bg-gray-50/50 dark:bg-gray-800/50 rounded-t-2xl">
-            <div className="text-sm text-gray-600 dark:text-gray-400">
+          <div className="flex items-center justify-between p-3 sm:p-4 border-b dark:border-gray-700 bg-gray-50/50 dark:bg-gray-800/50 rounded-t-xl sm:rounded-t-2xl">
+            <div className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">
               {t("notes.lastUpdated")}: {new Date(note.updated_at).toLocaleString(
                 locale === "id" ? "id-ID" : "en-US",
                 { 
@@ -164,13 +188,10 @@ export default function NoteEditor({
             </div>
             
             <button
-              onClick={(e) => {
-                e.stopPropagation()
-                handleCloseEditor()
-              }}
-              className="p-2 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-lg transition-all duration-300 hover:scale-110"
+              onClick={handleCloseButtonClick}
+              className="p-1 sm:p-2 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-lg transition-all duration-300 hover:scale-110"
             >
-              <X size={20} />
+              <X size={18} className="sm:w-5 sm:h-5" />
             </button>
           </div>
 
@@ -178,13 +199,14 @@ export default function NoteEditor({
             ref={actualTextareaRef}
             value={content}
             onChange={(e) => handleContentChange(e.target.value)}
+            onSelect={saveSelection}
             placeholder={t("notes.placeholder")}
-            className={`flex-1 p-6 resize-none outline-none border-none ${getColorClasses(colorTag)} min-h-[400px] placeholder-gray-500 text-lg leading-relaxed transition-colors duration-300 cursor-text`}
+            className={`flex-1 p-4 sm:p-6 resize-none outline-none border-none ${getColorClasses(colorTag)} min-h-[50vh] sm:min-h-[400px] placeholder-gray-500 text-base sm:text-lg leading-relaxed transition-colors duration-300 cursor-text`}
             autoFocus
           />
 
-          <div className="flex items-center justify-between p-4 border-t dark:border-gray-700 bg-gray-50/50 dark:bg-gray-800/50 rounded-b-2xl">
-            <div className="flex items-center gap-2 flex-wrap flex-1 mr-4">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between p-3 sm:p-4 border-t dark:border-gray-700 bg-gray-50/50 dark:bg-gray-800/50 rounded-b-xl sm:rounded-b-2xl gap-3 sm:gap-0">
+            <div className="flex items-center gap-1 sm:gap-2 flex-wrap flex-1 mr-0 sm:mr-4 justify-center sm:justify-start">
               {PALETTE.map((color) => (
                 <button
                   key={color.name}
@@ -192,9 +214,9 @@ export default function NoteEditor({
                     e.stopPropagation()
                     handleColorChange(color.name)
                   }}
-                  className={`w-7 h-7 rounded-lg transition-all duration-300 border-2 ${
+                  className={`w-6 h-6 sm:w-7 sm:h-7 rounded-md sm:rounded-lg transition-all duration-300 border ${
                     colorTag === color.name 
-                      ? 'ring-2 ring-blue-500 ring-offset-1 scale-110 shadow-md' 
+                      ? 'ring-1 sm:ring-2 ring-blue-500 ring-offset-1 scale-110 shadow-md' 
                       : 'hover:scale-105 border-transparent hover:shadow-sm'
                   } ${color.classes.split(' ')[0]} ${color.classes.split(' ')[1]}`}
                   title={color.name}
@@ -208,9 +230,9 @@ export default function NoteEditor({
                 e.preventDefault()
                 onDeleteRequest()
               }}
-              className="flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-br from-red-500 to-red-600 text-white hover:from-red-600 hover:to-red-700 active:from-red-700 active:to-red-800 transition-all duration-300 shadow-md hover:shadow-lg hover:scale-105 active:scale-95 flex-shrink-0"
+              className="flex items-center justify-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-br from-red-500 to-red-600 text-white hover:from-red-600 hover:to-red-700 active:from-red-700 active:to-red-800 transition-all duration-300 shadow-md hover:shadow-lg hover:scale-105 active:scale-95 flex-shrink-0 text-sm sm:text-base min-w-[120px]"
             >
-              <Trash2 size={18} className="transition-transform duration-300" />
+              <Trash2 size={18} className="sm:w-4 sm:h-4" />
               <span>{t("common.delete")}</span>
             </button>
           </div>
