@@ -63,6 +63,24 @@ export default function HomePage() {
     }
   }, [updateNote])
 
+  const handleDeleteNote = useCallback(async (id: string) => {
+    try {
+      await deleteNote(id)
+      showOperationStatus('success', t("common.deleteSuccess"))
+    } catch (error) {
+      console.error("Failed to delete note:", error)
+      showOperationStatus('error', t("common.deleteError"))
+    }
+  }, [deleteNote, showOperationStatus, t])
+
+  const handleEmptyClose = useCallback(async (id: string) => {
+    try {
+      await deleteNote(id)
+    } catch (error) {
+      console.error("Failed to delete empty note:", error)
+    }
+  }, [deleteNote])
+
   const handleDeleteRequest = useCallback((note: Note) => {
     setNoteToDelete(note)
     setShowConfirmDelete(true)
@@ -70,20 +88,14 @@ export default function HomePage() {
 
   const handleConfirmDelete = useCallback(async () => {
     if (noteToDelete) {
-      try {
-        await deleteNote(noteToDelete.id)
-        setShowConfirmDelete(false)
-        setNoteToDelete(null)
-        if (activeNote?.id === noteToDelete.id) {
-          setActiveNote(null)
-        }
-        showOperationStatus('success', t("common.deleteSuccess"))
-      } catch (error) {
-        console.error("Failed to delete note:", error)
-        showOperationStatus('error', t("common.deleteError"))
+      await handleDeleteNote(noteToDelete.id)
+      setShowConfirmDelete(false)
+      setNoteToDelete(null)
+      if (activeNote?.id === noteToDelete.id) {
+        setActiveNote(null)
       }
     }
-  }, [noteToDelete, deleteNote, activeNote, showOperationStatus, t])
+  }, [noteToDelete, handleDeleteNote, activeNote])
 
   const confirmDeleteAll = useCallback(async () => {
     try {
@@ -176,6 +188,7 @@ export default function HomePage() {
           note={activeNote}
           onClose={() => setActiveNote(null)}
           onDeleteRequest={() => handleDeleteRequest(activeNote)}
+          onEmptyClose={handleEmptyClose}
           onChange={handleUpdateNote}
           textareaRef={editorTextareaRef}
           autoFocus={newNoteAdded}

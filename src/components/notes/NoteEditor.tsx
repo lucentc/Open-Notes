@@ -10,6 +10,7 @@ type Props = {
   note: Note
   onClose: () => void
   onDeleteRequest: () => void
+  onEmptyClose: (id: string) => Promise<void>
   onChange: (id: string, updates: Partial<Note>) => Promise<void>
   textareaRef?: React.RefObject<HTMLTextAreaElement | null>
   autoFocus?: boolean
@@ -19,6 +20,7 @@ export default function NoteEditor({
   note, 
   onClose, 
   onDeleteRequest, 
+  onEmptyClose,
   onChange, 
   textareaRef,
   autoFocus = false 
@@ -101,7 +103,7 @@ export default function NoteEditor({
     }
 
     if (note.id && content.trim() === "") {
-      onDeleteRequest()
+      await onEmptyClose(note.id)
     } else if (note.id && (content !== note.content || colorTag !== note.color_tag)) {
       try {
         await onChange(note.id, { 
@@ -114,7 +116,7 @@ export default function NoteEditor({
     }
     
     onClose()
-  }, [content, colorTag, note.id, note.content, note.color_tag, onDeleteRequest, onChange, onClose])
+  }, [content, colorTag, note.id, note.content, note.color_tag, onEmptyClose, onChange, onClose])
 
   const handleClickOutside = useCallback((event: MouseEvent) => {
     const target = event.target as HTMLElement
