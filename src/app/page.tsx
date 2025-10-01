@@ -13,6 +13,8 @@ export default function HomePage() {
   const { notes, loading, deleteNote, updateNote, addNote, deleteAll } = useNotes()
   const [activeNote, setActiveNote] = useState<Note | null>(null)
   const [showConfirmDeleteAll, setShowConfirmDeleteAll] = useState(false)
+  const [showConfirmDelete, setShowConfirmDelete] = useState(false)
+  const [noteToDelete, setNoteToDelete] = useState<Note | null>(null)
   const [newNoteAdded, setNewNoteAdded] = useState(false)
   const [operationStatus, setOperationStatus] = useState<{
     type: 'success' | 'error',
@@ -61,13 +63,27 @@ export default function HomePage() {
     }
   }, [updateNote])
 
-  const handleDeleteNote = useCallback(async (id: string) => {
-    try {
-      await deleteNote(id)
-    } catch (error) {
-      console.error("Failed to delete note:", error)
+  const handleDeleteRequest = useCallback((note: Note) => {
+    setNoteToDelete(note)
+    setShowConfirmDelete(true)
+  }, [])
+
+  const handleConfirmDelete = useCallback(async () => {
+    if (noteToDelete) {
+      try {
+        await deleteNote(noteToDelete.id)
+        setShowConfirmDelete(false)
+        setNoteToDelete(null)
+        if (activeNote?.id === noteToDelete.id) {
+          setActiveNote(null)
+        }
+        showOperationStatus('success', t("common.deleteSuccess"))
+      } catch (error) {
+        console.error("Failed to delete note:", error)
+        showOperationStatus('error', t("common.deleteError"))
+      }
     }
-  }, [deleteNote])
+  }, [noteToDelete, deleteNote, activeNote, showOperationStatus, t])
 
   const confirmDeleteAll = useCallback(async () => {
     try {
@@ -151,6 +167,7 @@ export default function HomePage() {
           notes={notes} 
           onOpen={handleNoteClick}
           onAdd={handleAddNote}
+          onDeleteRequest={handleDeleteRequest}
         />
       )}
 
@@ -158,12 +175,23 @@ export default function HomePage() {
         <NoteEditor
           note={activeNote}
           onClose={() => setActiveNote(null)}
-          onDelete={handleDeleteNote}
+          onDeleteRequest={() => handleDeleteRequest(activeNote)}
           onChange={handleUpdateNote}
           textareaRef={editorTextareaRef}
           autoFocus={newNoteAdded}
         />
       )}
+
+      <ConfirmModal
+        open={showConfirmDelete}
+        title={t("common.confirmDeleteTitle")}
+        description={t("common.confirmDeleteDesc")}
+        onCancel={() => setShowConfirmDelete(false)}
+        onConfirm={handleConfirmDelete}
+        confirmLabel={t("common.confirmYes")}
+        cancelLabel={t("common.confirmNo")}
+        type="delete"
+      />
 
       <ConfirmModal
         open={showConfirmDeleteAll}

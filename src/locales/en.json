@@ -26,7 +26,9 @@
     "confirmDeleteAllTitle": "Delete all notes?",
     "confirmDeleteAllDesc": "Are you sure you want to delete ALL notes? This will permanently delete all your notes and cannot be undone.",
     "confirmYes": "Yes",
-    "confirmNo": "No"
+    "confirmNo": "No",
+    "deleteSuccess": "Note deleted successfully",
+    "deleteError": "Failed to delete note"
   },
   "theme": {
     "light": "Light",

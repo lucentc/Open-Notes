@@ -9,7 +9,7 @@ import { Edit3, Trash2 } from "lucide-react"
 interface NoteCardProps {
   note: Note
   onUpdate?: (id: string, updates: Partial<Note>) => void
-  onDelete?: (id: string) => void
+  onDeleteRequest?: (note: Note) => void
   onClick?: () => void
   editable?: boolean
 }
@@ -22,7 +22,7 @@ const BASIC_COLORS: NoteColor[] = [
 export default function NoteCard({ 
   note, 
   onUpdate, 
-  onDelete, 
+  onDeleteRequest, 
   onClick,
   editable = false
 }: NoteCardProps) {
@@ -59,7 +59,7 @@ export default function NoteCard({
       onClick={handleCardClick}
       className={`p-3 sm:p-4 rounded-xl cursor-pointer transition-all duration-300 h-32 sm:h-48 flex flex-col border ${getColorClasses(note.color_tag)} group hover:scale-105 shadow-sm hover:shadow-lg`}
     >
-      {(editable && (onUpdate || onDelete)) && (
+      {(editable && (onUpdate || onDeleteRequest)) && (
         <div className="flex justify-between items-start mb-1 sm:mb-2">
           {onUpdate && (
             <div className="flex gap-1 flex-wrap">
@@ -93,11 +93,11 @@ export default function NoteCard({
                 <Edit3 size={10} className="sm:w-3 sm:h-3" />
               </button>
             )}
-            {onDelete && (
+            {onDeleteRequest && (
               <button 
                 onClick={(e) => {
                   e.stopPropagation()
-                  onDelete(note.id)
+                  onDeleteRequest(note)
                 }}
                 className="p-1 hover:bg-black/10 dark:hover:bg-white/10 rounded-lg transition-all duration-300 hover:scale-110"
               >

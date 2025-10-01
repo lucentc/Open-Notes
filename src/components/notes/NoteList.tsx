@@ -10,6 +10,7 @@ type Props = {
   notes: Note[]
   onOpen: (note: Note) => void
   onAdd?: () => void
+  onDeleteRequest?: (note: Note) => void
 }
 
 export default function NoteList({ notes, onOpen, onAdd }: Props) {
