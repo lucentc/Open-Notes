@@ -137,11 +137,10 @@ export function useNotes() {
               setNotes(prev => [payload.new as Note, ...prev])
               break
             case 'UPDATE':
-              setNotes(prev =>
-                prev.map(note =>
-                  note.id === payload.new.id ? (payload.new as Note) : note
-                )
-              )
+              setNotes(prev => {
+                const filtered = prev.filter(note => note.id !== payload.new.id)
+                return [payload.new as Note, ...filtered]
+              })
               break
             case 'DELETE':
               setNotes(prev => prev.filter(note => note.id !== payload.old.id))

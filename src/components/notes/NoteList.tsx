@@ -40,7 +40,7 @@ export default function NoteList({ notes, onOpen, onAdd }: Props) {
         {onAdd && (
           <button
             onClick={onAdd}
-            className="px-6 py-3 bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-lg hover:from-blue-600 hover:to-blue-700 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 flex items-center gap-2 mt-4"
+            className="px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 flex items-center gap-2 mt-4"
             type="button"
           >
             <Plus size={20} />
@@ -58,7 +58,7 @@ export default function NoteList({ notes, onOpen, onAdd }: Props) {
       {notes.map((note) => (
         <div
           key={note.id}
-          className={`p-4 rounded-xl shadow-sm cursor-pointer hover:shadow-lg transition-all duration-300 h-52 flex flex-col border ${getColorClasses(note.color_tag)} group hover:scale-105`}
+          className={`p-4 rounded-xl shadow-sm cursor-pointer hover:shadow-lg transition-all duration-300 h-48 flex flex-col border ${getColorClasses(note.color_tag)} group hover:scale-105`}
           onClick={() => onOpen(note)}
         >
           <div className="flex-1 overflow-hidden mb-2">

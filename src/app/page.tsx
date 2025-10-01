@@ -122,7 +122,7 @@ export default function HomePage() {
   }, [handleAddNote])
 
   return (
-    <main className="p-6 max-w-7xl mx-auto">
+    <div className="w-full max-w-7xl mx-auto">
       {operationStatus && (
         <div className={`fixed top-20 left-1/2 transform -translate-x-1/2 z-50 px-4 py-3 rounded-lg shadow-lg ${
           operationStatus.type === 'success' 
@@ -178,6 +178,6 @@ export default function HomePage() {
         cancelLabel={t("common.confirmNo")}
         type="deleteAll"
       />
-    </main>
+    </div>
   )
 }
