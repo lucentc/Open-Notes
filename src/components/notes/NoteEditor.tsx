@@ -2,7 +2,7 @@
 
 import React, { useEffect, useRef, useState, useCallback } from "react"
 import type { Note, NoteColor } from "@/types/note"
-import { PALETTE, getColorClasses } from "@/styles/themes/palette"
+import { PALETTE, getColorClasses } from "@/themes/palette"
 import { X, Trash2 } from "lucide-react"
 import { useI18n } from "@/providers/I18nProvider"
 

@@ -3,7 +3,7 @@
 import React, { useState } from "react"
 import type { Note, NoteColor } from "@/types/note"
 import { useI18n } from "@/providers/I18nProvider"
-import { getColorClasses } from "@/styles/themes/palette"
+import { getColorClasses } from "@/themes/palette"
 import { Edit3, Trash2 } from "lucide-react"
 
 interface NoteCardProps {

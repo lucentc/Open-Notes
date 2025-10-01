@@ -121,10 +121,6 @@ export default function HomePage() {
       }
     }
 
-    const handleNotesCleared = () => {
-      setActiveNote(null)
-    }
-
     const handleDeleteAllClick = () => {
       setShowConfirmDeleteAll(true)
     }
@@ -134,13 +130,11 @@ export default function HomePage() {
     }
 
     window.addEventListener("note:open", handleOpenNote)
-    window.addEventListener("notes:cleared", handleNotesCleared)
     window.addEventListener("deleteAll:click", handleDeleteAllClick)
     window.addEventListener("addNote:click", handleAddNoteClick)
 
     return () => {
       window.removeEventListener("note:open", handleOpenNote)
-      window.removeEventListener("notes:cleared", handleNotesCleared)
       window.removeEventListener("deleteAll:click", handleDeleteAllClick)
       window.removeEventListener("addNote:click", handleAddNoteClick)
     }
@@ -179,7 +173,6 @@ export default function HomePage() {
           notes={notes} 
           onOpen={handleNoteClick}
           onAdd={handleAddNote}
-          onDeleteRequest={handleDeleteRequest}
         />
       )}
 

@@ -2,7 +2,7 @@
 
 import type { Note } from "@/types/note"
 import { useI18n } from "@/providers/I18nProvider"
-import { getColorClasses } from "@/styles/themes/palette"
+import { getColorClasses } from "@/themes/palette"
 import { Plus } from "lucide-react"
 import { useEffect, useState } from "react"
 
@@ -10,7 +10,6 @@ type Props = {
   notes: Note[]
   onOpen: (note: Note) => void
   onAdd?: () => void
-  onDeleteRequest?: (note: Note) => void
 }
 
 export default function NoteList({ notes, onOpen, onAdd }: Props) {

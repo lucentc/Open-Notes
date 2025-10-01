@@ -1,6 +1,6 @@
-import "@/styles/globals.css"
+import "@/app/globals.css"
 import TopBar from "@/components/common/TopBar"
-import { ThemeProvider } from "@/styles/themes/theme"
+import { ThemeProvider } from "@/themes/theme"
 import { I18nProvider } from "@/providers/I18nProvider"
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

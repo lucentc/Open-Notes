@@ -2,7 +2,7 @@
 
 import React, { useMemo, useState, useCallback, useEffect, useRef } from "react"
 import { useI18n } from "@/providers/I18nProvider"
-import { useTheme } from "@/styles/themes/theme"
+import { useTheme } from "@/themes/theme"
 import { Plus, Moon, Sun, AlertTriangle, Menu, X } from "lucide-react"
 
 export default function TopBar() {

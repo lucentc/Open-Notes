@@ -2,20 +2,14 @@
   "topbar": {
     "add": "Tambah",
     "deleteAll": "Hapus semua",
-    "confirmDeleteAll": "Hapus semua catatan?",
-    "confirmDeleteAllDesc": "Apakah Anda yakin ingin menghapus semua catatan? Ini akan menghapus permanen semua catatan Anda dan tidak dapat dibatalkan.",
-    "searchPlaceholder": "Cari catatan...",
     "deleteAllSuccess": "Semua catatan berhasil dihapus"
   },
   "notes": {
     "lastUpdated": "Terakhir diupdate",
-    "lastUpdatedShort": "Diupdate",
-    "new": "Catatan baru",
     "placeholder": "Tulis catatanmu di sini...",
     "empty": "Tidak ada catatan",
     "emptyDescription": "Mulai dengan membuat catatan pertama Anda untuk mengatur pikiran dan ide-ide.",
-    "emptyContent": "Tidak ada konten",
-    "addFirstNote": "Tambah Catatan Pertama"
+    "emptyContent": "Tidak ada konten"
   },
   "common": {
     "loading": "Memuat...",
