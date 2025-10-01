@@ -66,9 +66,11 @@ export default function NoteCard({
               {BASIC_COLORS.map(color => (
                 <button
                   key={color}
-                  className={`w-2.5 h-2.5 rounded-full border transition-all duration-300 ${
-                    note.color_tag === color ? 'border-gray-600 ring-1 ring-gray-400 scale-110' : 'border-gray-400/50 hover:border-gray-500 hover:scale-110'
-                  }`}
+                  className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
+                    note.color_tag === color 
+                      ? 'ring-1 ring-gray-400 scale-110 border-2 border-gray-600' 
+                      : 'border border-gray-400/50 hover:border-gray-500 hover:scale-110'
+                  } ${color === 'gray' ? 'bg-gray-200' : color === 'white' ? 'bg-white' : color === 'black' ? 'bg-gray-800' : color === 'pastel-pink' ? 'bg-pink-200' : color === 'pastel-red' ? 'bg-red-200' : color === 'pastel-orange' ? 'bg-orange-200' : color === 'pastel-yellow' ? 'bg-yellow-200' : color === 'pastel-green' ? 'bg-green-200' : color === 'pastel-blue' ? 'bg-blue-200' : 'bg-purple-200'}`}
                   onClick={(e) => {
                     e.stopPropagation()
                     handleColorChange(color)

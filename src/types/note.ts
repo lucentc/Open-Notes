@@ -11,7 +11,7 @@ export interface NoteUpdate {
   color_tag?: NoteColor
 }
 
-export type NoteColor =
+export type NoteColor = 
   | 'white' | 'gray' | 'black'
   | 'pastel-pink' | 'pastel-red' | 'pastel-orange' | 'pastel-yellow'
   | 'pastel-green' | 'pastel-blue' | 'pastel-purple'

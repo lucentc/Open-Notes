@@ -51,7 +51,7 @@ export default function TopBar() {
         
         <div className="relative flex-1">
           <Search className={`absolute left-3 top-1/2 transform -translate-y-1/2 transition-all duration-300 ${
-            isSearchFocused ? "text-blue-700 scale-110" : isSearchHovered ? "text-blue-600 scale-105" : "text-gray-700 dark:text-gray-300"
+            isSearchFocused ? "text-blue-700 scale-110" : isSearchHovered ? "text-blue-600 scale-105" : "text-gray-800 dark:text-gray-200"
           }`} size={20} strokeWidth={3} />
           <input
             type="text"
