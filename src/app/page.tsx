@@ -63,10 +63,7 @@ export default function HomePage() {
 
   const handleDeleteNote = useCallback(async (id: string) => {
     try {
-      const success = await deleteNote(id)
-      if (success) {
-        setActiveNote(null)
-      }
+      await deleteNote(id)
     } catch (error) {
       console.error("Failed to delete note:", error)
     }
@@ -122,7 +119,7 @@ export default function HomePage() {
   }, [handleAddNote])
 
   return (
-    <div className="w-full max-w-7xl mx-auto">
+    <div className="w-full max-w-7xl mx-auto px-2 sm:px-4">
       {operationStatus && (
         <div className={`fixed top-20 left-1/2 transform -translate-x-1/2 z-50 px-4 py-3 rounded-lg shadow-lg ${
           operationStatus.type === 'success' 

@@ -64,17 +64,15 @@ export default function NoteEditor({
   const focusTextarea = useCallback(() => {
     const textarea = actualTextareaRef.current
     if (textarea) {
-      textarea.focus()
-      if (autoFocus) {
-        setTimeout(() => {
-          if (textarea) {
-            textarea.setSelectionRange(
-              textarea.value.length,
-              textarea.value.length
-            )
-          }
-        }, 10)
-      }
+      setTimeout(() => {
+        textarea.focus()
+        if (autoFocus) {
+          textarea.setSelectionRange(
+            textarea.value.length,
+            textarea.value.length
+          )
+        }
+      }, 0)
     }
   }, [autoFocus, actualTextareaRef])
 
@@ -149,6 +147,11 @@ export default function NoteEditor({
     setContent(newContent)
   }
 
+  const handleContainerClick = (e: React.MouseEvent) => {
+    e.stopPropagation()
+    focusTextarea()
+  }
+
   return (
     <>
       <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm" />
@@ -157,6 +160,8 @@ export default function NoteEditor({
         <div
           ref={containerRef}
           className="relative rounded-2xl shadow-2xl w-full max-w-2xl bg-white dark:bg-gray-900 flex flex-col max-h-[90vh] border border-gray-200 dark:border-gray-700"
+          onClick={handleContainerClick}
+          data-preserve-editor
         >
           <div className="flex items-center justify-between p-4 border-b dark:border-gray-700 bg-gray-50/50 dark:bg-gray-800/50 rounded-t-2xl">
             <div className="text-sm text-gray-600 dark:text-gray-400">
@@ -186,10 +191,11 @@ export default function NoteEditor({
             onChange={(e) => handleContentChange(e.target.value)}
             placeholder={t("notes.placeholder")}
             className={`flex-1 p-6 resize-none outline-none border-none ${getColorClasses(colorTag)} min-h-[400px] placeholder-gray-500 text-lg leading-relaxed transition-colors duration-300 cursor-text`}
+            autoFocus
           />
 
           <div className="flex items-center justify-between p-4 border-t dark:border-gray-700 bg-gray-50/50 dark:bg-gray-800/50 rounded-b-2xl">
-            <div className="flex items-center gap-1 flex-wrap">
+            <div className="flex items-center gap-2 flex-wrap flex-1 mr-4">
               {PALETTE.map((color) => (
                 <button
                   key={color.name}
@@ -206,9 +212,9 @@ export default function NoteEditor({
 
             <button
               onClick={() => setShowConfirm(true)}
-              className="flex items-center justify-center w-9 h-9 rounded-xl bg-gradient-to-br from-gray-500 to-gray-600 text-white hover:from-gray-600 hover:to-gray-700 active:from-gray-700 active:to-gray-800 transition-all duration-300 shadow-md hover:shadow-lg hover:scale-110 active:scale-105"
+              className="flex items-center justify-center w-10 h-10 rounded-xl bg-gradient-to-br from-red-500 to-red-600 text-white hover:from-red-600 hover:to-red-700 active:from-red-700 active:to-red-800 transition-all duration-300 shadow-md hover:shadow-lg hover:scale-110 active:scale-105 flex-shrink-0"
             >
-              <Trash2 size={16} className="transition-transform duration-300 hover:scale-125" />
+              <Trash2 size={18} className="transition-transform duration-300 hover:scale-125" />
             </button>
           </div>
         </div>

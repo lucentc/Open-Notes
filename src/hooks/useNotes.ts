@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState, useCallback, useMemo } from "react"
+import { useEffect, useState, useCallback } from "react"
 import { supabase } from "@/lib/supabaseClient"
 import type { Note, NoteColor } from "@/types/note"
 import { SUPABASE_TABLES } from "@/config/constants"
@@ -9,7 +9,6 @@ import type { RealtimePostgresChangesPayload } from "@supabase/supabase-js"
 export function useNotes() {
   const [notes, setNotes] = useState<Note[]>([])
   const [loading, setLoading] = useState(true)
-  const [searchQuery, setSearchQuery] = useState("")
 
   const fetchNotes = useCallback(async () => {
     setLoading(true)
@@ -99,25 +98,20 @@ export function useNotes() {
 
   const deleteAll = useCallback(async () => {
     try {
-      setNotes([])
-      
       const { error } = await supabase
         .from(SUPABASE_TABLES.NOTES)
         .delete()
         .gte('created_at', '1970-01-01')
 
-      if (error) {
-        console.error("Supabase delete all error:", error)
-        await fetchNotes()
-        throw error
-      }
+      if (error) throw error
       
+      setNotes([])
       return true
     } catch (error) {
       console.error("Failed to delete all notes:", error)
       return false
     }
-  }, [fetchNotes])
+  }, [])
 
   useEffect(() => {
     fetchNotes()
@@ -155,21 +149,10 @@ export function useNotes() {
     }
   }, [fetchNotes])
 
-  const filteredNotes = useMemo(() => {
-    if (!searchQuery.trim()) return notes
-    
-    const query = searchQuery.toLowerCase()
-    return notes.filter(note => 
-      note.content.toLowerCase().includes(query)
-    )
-  }, [notes, searchQuery])
-
   return {
-    notes: filteredNotes,
+    notes,
     allNotes: notes,
     loading,
-    searchQuery,
-    setSearchQuery,
     addNote,
     updateNote,
     deleteNote,

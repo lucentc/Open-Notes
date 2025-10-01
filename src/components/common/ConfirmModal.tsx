@@ -2,6 +2,7 @@
 
 import React from "react"
 import { Trash2, AlertTriangle } from "lucide-react"
+import { useI18n } from "@/providers/I18nProvider"
 
 type Props = {
   open: boolean
@@ -24,6 +25,8 @@ export default function ConfirmModal({
   cancelLabel = "Batal",
   type = "delete"
 }: Props) {
+  const { t } = useI18n()
+  
   if (!open) return null
 
   const isDeleteAll = type === "deleteAll"
@@ -54,7 +57,7 @@ export default function ConfirmModal({
             )}
           </div>
           <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
-            {isDeleteAll ? "Delete All Notes?" : title}
+            {isDeleteAll ? t("common.confirmDeleteAllTitle") : title}
           </h3>
         </div>
         

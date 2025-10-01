@@ -57,16 +57,16 @@ export default function NoteCard({
   return ( 
     <div
       onClick={handleCardClick}
-      className={`p-4 rounded-xl cursor-pointer transition-all duration-300 h-48 flex flex-col border ${getColorClasses(note.color_tag)} group hover:scale-105 shadow-sm hover:shadow-lg`}
+      className={`p-3 sm:p-4 rounded-xl cursor-pointer transition-all duration-300 h-32 sm:h-48 flex flex-col border ${getColorClasses(note.color_tag)} group hover:scale-105 shadow-sm hover:shadow-lg`}
     >
       {(editable && (onUpdate || onDelete)) && (
-        <div className="flex justify-between items-start mb-2">
+        <div className="flex justify-between items-start mb-1 sm:mb-2">
           {onUpdate && (
             <div className="flex gap-1 flex-wrap">
               {BASIC_COLORS.map(color => (
                 <button
                   key={color}
-                  className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
+                  className={`w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full transition-all duration-300 ${
                     note.color_tag === color 
                       ? 'ring-1 ring-gray-400 scale-110 border-2 border-gray-600' 
                       : 'border border-gray-400/50 hover:border-gray-500 hover:scale-110'
@@ -88,9 +88,9 @@ export default function NoteCard({
                   e.stopPropagation()
                   setIsEditing(!isEditing)
                 }}
-                className="p-1.5 hover:bg-black/10 dark:hover:bg-white/10 rounded-lg transition-all duration-300 hover:scale-110"
+                className="p-1 hover:bg-black/10 dark:hover:bg-white/10 rounded-lg transition-all duration-300 hover:scale-110"
               >
-                <Edit3 size={12} />
+                <Edit3 size={10} className="sm:w-3 sm:h-3" />
               </button>
             )}
             {onDelete && (
@@ -99,9 +99,9 @@ export default function NoteCard({
                   e.stopPropagation()
                   onDelete(note.id)
                 }}
-                className="p-1.5 hover:bg-black/10 dark:hover:bg-white/10 rounded-lg transition-all duration-300 hover:scale-110"
+                className="p-1 hover:bg-black/10 dark:hover:bg-white/10 rounded-lg transition-all duration-300 hover:scale-110"
               >
-                <Trash2 size={12} />
+                <Trash2 size={10} className="sm:w-3 sm:h-3" />
               </button>
             )}
           </div>
@@ -119,16 +119,16 @@ export default function NoteCard({
         />
       ) : (
         <>
-          <h3 className="font-medium text-base mb-2 line-clamp-2 leading-tight">
+          <h3 className="font-medium text-xs sm:text-base mb-1 sm:mb-2 line-clamp-2 leading-tight">
             {preview}
           </h3>
-          <p className="text-sm flex-1 overflow-hidden line-clamp-4 leading-relaxed opacity-90">
+          <p className="text-xs sm:text-sm flex-1 overflow-hidden line-clamp-3 sm:line-clamp-4 leading-relaxed opacity-90">
             {snippet}
           </p>
         </>
       )}
       
-      <div className="text-xs opacity-60 mt-2 transition-opacity duration-300 group-hover:opacity-80">
+      <div className="text-xs pt-2 border-t border-current transition-opacity duration-300 group-hover:opacity-80 opacity-60">
         {new Date(note.updated_at).toLocaleDateString(locale, {
           month: 'short',
           day: 'numeric',
